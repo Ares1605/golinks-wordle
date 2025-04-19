@@ -15,14 +15,16 @@
   footer {
     flex-shrink: 0;
     display: flex;
+    font-size: 15px;
     justify-content: center;
-    gap: 5px;
-    height: 30px;
+    height: 25px;
     width: 100%;
     color: var(--primary-color);
+    gap: 6px;
   }
   img {
-    height: 80%;
+    height: 75%;
+    vertical-align: middle;
     aspect-ratio: 1;
   }
 </style>

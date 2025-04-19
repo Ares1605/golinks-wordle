@@ -3,6 +3,7 @@
 :root {
   --primary-color: #523242;
   --secondary-color: #F7C096;
+  --secondary-light-color: #F7C6A1;
   --background-color: #FEDEB8;
 
   height: 100%;
@@ -12,6 +13,7 @@ body {
   font-family: "Funnel Sans", sans-serif;
   margin: 0px;
   min-width: 500px;
+  min-height: 560px;
   background-color: var(--background-color);
   font-size: 18px;
   height: 100%;

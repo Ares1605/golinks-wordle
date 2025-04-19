@@ -4,9 +4,10 @@
 
   interface KeyboardProps {
     onKey: (key: string) => void;
+    height: string;
   }
 
-  let { onKey: onKeyTrigger }: KeyboardProps = $props();
+  let { onKey: onKeyTrigger, height }: KeyboardProps = $props();
 
   class Logo {
     src: string;
@@ -41,47 +42,57 @@
 
 <svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
 
-{#each rows as row}
-  <div class="row">
-    {#each row as key}
-      {#if key instanceof Logo}
-        <button onclick={() => onKeyTrigger(key.code)} class="key"><img alt={key.code} src={key.src}></button>
-      {:else}
-        <button onclick={() => onKeyTrigger(key)} class="key">{key}</button>
-      {/if}
-    {/each}
-  </div>
-{/each}
+<div class="keyboard" style:height={height}>
+  {#each rows as row}
+    <div class="row">
+      {#each row as key}
+        {#if key instanceof Logo}
+          <button onclick={() => onKeyTrigger(key.code)} class="key"><img alt={key.code} src={key.src}></button>
+        {:else}
+          <button onclick={() => onKeyTrigger(key)} class="key">{key}</button>
+        {/if}
+      {/each}
+    </div>
+  {/each}
+</div>
 
 <style lang="scss">
+.keyboard {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px;
+}
 .row {
+  flex: auto; 
+  width: 100%;
   display: flex;
   justify-content: center;
-  margin: 10px 0px;
   gap: 5px;
 }
 .key {
-  $height: 60px;
+  $height: 100%;
 
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0px;
-  width: 50px;
-  line-height: $height;
   height: $height;
+  aspect-ratio: .8;
   background-color: var(--secondary-color);
   color: var(--primary-color);
   font-weight: bold;
-  font-size: 23px;
+  font-size: 20px;
   border-radius: 5px;
   border: none;
   cursor: pointer;
   text-transform: capitalize;
+  position: relative;
 
   img {
-    align-items: center;
-    max-width: 85%;
+    position: absolute;
+    max-width: 95%;
     max-height: 85%;
   }
 }
