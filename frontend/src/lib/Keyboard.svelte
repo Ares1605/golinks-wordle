@@ -3,10 +3,10 @@
   import bkspcIcon from "../assets/backspace.svg";
 
   interface KeyboardProps {
-    onKeyTrigger: (key: string) => void;
+    onKey: (key: string) => void;
   }
 
-  let { onKeyTrigger }: KeyboardProps = $props();
+  let { onKey: onKeyTrigger }: KeyboardProps = $props();
 
   class Logo {
     src: string;
@@ -24,13 +24,22 @@
     [new Logo(enterIcon, "Enter"), "z", "x", "c", "v", "b", "n", "m", new Logo(bkspcIcon, "Backspace")],
   ];
 
+  const keysPressed: {[key: string]: boolean} = {};
+
   const onKeyDown = (event: KeyboardEvent) => {
-    console.log(event.key);
+    // if the key is currently being pressed, disregard the consecutive events
+    if (keysPressed[event.key])
+      return;
+    keysPressed[event.key] = true;
+
     onKeyTrigger(event.key);
+  }
+  const onKeyUp = (event: KeyboardEvent) => {
+    keysPressed[event.key] = false;
   }
 </script>
 
-<svelte:window on:keydown={onKeyDown} />
+<svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
 
 {#each rows as row}
   <div class="row">
