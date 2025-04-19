@@ -13,17 +13,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 50px;
+    gap: 100px;
     height: $height;
-    font-size: $height - 15px;
+    font-size: $height - 12px;
     text-align: center;
     color: var(--primary-color);
-    font-weight: 500;
+    font-weight: 600;
     background-color: var(--secondary-color);
     border-bottom: 2px solid var(--secondary-light-color);
     letter-spacing: 2px;
   }
   .golinks-logo {
-    height: 250%;
+    height: 275%;
   }
 </style>

@@ -1,6 +1,7 @@
 <script lang="ts">
   import Grid from "./Grid.svelte";
   import Keyboard from "./Keyboard.svelte";
+  import Notif from "./Notif.svelte";
   import { Cell, generateEmptyGrid, getWord, Status } from "./grid";
   import API from "./api";
   import { GuessChar } from "./api";
@@ -8,12 +9,14 @@
   let cell = { row: 0, col: 0 };
   let grid = $state(generateEmptyGrid());
   let gridComp: Grid;
+  let notifComp: Notif;
 
   const processEnter = async () => {
     console.log("Processing the enter key!");
     const row = grid[cell.row];
 
     if (cell.col !== row.length) {
+      notifComp.setNotif("Not enough letters");
       gridComp.shakeRow(cell.row);
       return;
     }
@@ -24,6 +27,7 @@
         const data = response.data;
         console.log(response);
         if (!data.is_valid_word) {
+          notifComp.setNotif("Invalid word!");
           gridComp.shakeRow(cell.row)
           return;
         }
@@ -85,5 +89,16 @@
   }
 </script>
 
-<Grid height="60%" bind:this={gridComp} {grid}></Grid>
-<Keyboard height="30%" onKey={onKey}></Keyboard>
+<div class="game">
+  <Grid height="60%" bind:this={gridComp} {grid}></Grid>
+  <Keyboard height="30%" onKey={onKey}></Keyboard>
+  <Notif bind:this={notifComp} />
+</div>
+
+<style lang="scss">
+  .game {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+</style>

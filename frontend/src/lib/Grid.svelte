@@ -10,9 +10,11 @@ let { grid, height }: gridProps = $props();
 
 let shaking = $state(-1);
 
+let shakingTimeout = -1;
 export const shakeRow = (rowI: number) => {
   shaking = rowI;
-  setTimeout(() => shaking = -1, 750);
+  clearTimeout(shakingTimeout);
+  shakingTimeout = setTimeout(() => shaking = -1, 500);
 }
 </script>
 
@@ -49,7 +51,7 @@ export const shakeRow = (rowI: number) => {
     margin: $gap;
     
     &.shake {
-      animation: shake 0.5s ease-in-out;
+      animation: shake .5s ease-in-out infinite;
     }
   }
 
@@ -66,6 +68,8 @@ export const shakeRow = (rowI: number) => {
   }
 
   .cell {
+    --border-width: 4px;
+
     $pending-bkgrd-color: #FACAA5;
     box-sizing: border-box;
     display: flex;
@@ -73,7 +77,7 @@ export const shakeRow = (rowI: number) => {
     align-items: center;
     justify-content: center;
     height: 100%;
-    border: 3px solid var(--secondary-color);
+    border: var(--border-width) solid var(--secondary-color);
     border-radius: 5px;
     color: var(--primary-color);
     font-weight: bold;
@@ -102,12 +106,12 @@ export const shakeRow = (rowI: number) => {
       0% { 
         transform: scaleY(1);
         background-color: $pending-bkgrd-color;
-        border: 3px solid var(--secondary-color);
+        border: var(--border-width) solid var(--secondary-color);
       }
       48% { 
         transform: scaleY(0.05);
         background-color: $pending-bkgrd-color;
-        border: 3px solid var(--secondary-color);
+        border: var(--border-width) solid var(--secondary-color);
       }
       50.01% {
         background-color: var(--to-be-background-color);
@@ -134,6 +138,13 @@ export const shakeRow = (rowI: number) => {
     }
     100% {
       transform: scale(1);
+    }
+  }
+
+  @media screen and (max-height: 400px) {
+    .cell {
+      --border-width: 3px;
+      border-width: var(--border-width);
     }
   }
 </style>

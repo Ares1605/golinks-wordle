@@ -15,9 +15,9 @@
   footer {
     flex-shrink: 0;
     display: flex;
-    font-size: 15px;
+    font-size: 16px;
     justify-content: center;
-    height: 25px;
+    height: 30px;
     width: 100%;
     color: var(--primary-color);
     gap: 6px;
