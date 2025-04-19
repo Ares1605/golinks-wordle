@@ -14,6 +14,8 @@ api = Api(app)
 # Server Routing
 api.add_resource(API.Test, '/test_connection')
 api.add_resource(API.GetWords, '/all_words')
+api.add_resource(API.Guess, '/guess/<string:word>')
+api.add_resource(API.GetDailyWord, '/daily_word')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=os.getenv('DEVELOPMENT', '0') == '1', use_reloader=False)  # use_reloader=False prevents the app from starting twice
+    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)), debug=os.getenv('DEVELOPMENT', '0') == '1', use_reloader=False)  # use_reloader=False prevents the app from starting twice

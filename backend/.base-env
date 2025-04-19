@@ -1,0 +1,5 @@
+# 1 for development environment, 0 for production environment
+DEVELOPMENT=0
+
+# specifies the port to put the flask instance to
+PORT=5000

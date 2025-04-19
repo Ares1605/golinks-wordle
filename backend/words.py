@@ -1,8 +1,69 @@
-from typing import List
+from typing import List, Literal, Union
+import random
+from datetime import date
+
+class BadWordLength(Exception):
+    def __init__(self, word: str):
+        self._word = word
+    @property
+    def word(self) -> str:
+        return self._word
+class InvalidWord(Exception):
+    def __init__(self, word: str):
+        self._word = word
+    @property
+    def word(self) -> str:
+        return self._word
 
 class Words:
     _words: List[str] = []
 
+    guess_type = List[Union[Literal['r'], Literal['w'], Literal['c']]]
+
+    @staticmethod
+    def get_daily_word() -> str:
+        today = str(date.today())
+        key = hash(today)
+
+        # set the random seed based on the date
+        random.seed(key)
+        
+        # pick a random word from the list, using the seed
+        return random.choice(Words._words)
+    @staticmethod
+    def validate(word: str) -> bool:
+        left = 0
+        right = len(Words._words) - 1
+        
+        while left <= right:
+            mid = (left + right) // 2
+            
+            if Words._words[mid] == word:
+                return True
+            elif Words._words[mid] < word:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return False
+    @staticmethod
+    def guess(word: str) -> guess_type:
+        if len(word) != 5:
+            raise BadWordLength(word)
+        if Words.validate(word) is False:
+            raise InvalidWord(word)
+
+        result: Words.guess_type = []
+
+        daily_word = Words.get_daily_word()
+        for i in range(len(word)):
+            char = word[i]
+            if daily_word[i] == char:
+                result.append('r')
+            elif char in daily_word:
+                result.append('c')
+            else:
+                result.append('w')
+        return result
     @staticmethod
     def all() -> List[str]:
         return Words._words
