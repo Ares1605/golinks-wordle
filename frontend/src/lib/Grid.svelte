@@ -96,7 +96,7 @@ export const shakeRow = (rowI: number) => {
       --to-be-background-color: var(--somewhere);
     }
     &.wrong {
-      --to-be-background-color: var(--nowhere);
+      --to-be-background-color: var(--secondary-color);
     }
 
     &.right, &.close, &.wrong {

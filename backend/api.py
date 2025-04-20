@@ -24,4 +24,4 @@ class API:
                 }, "Uh-oh, the word you requested a guess with isn't a valid word!")
     class Reveal(Resource):
         def get(self, seed: str):
-            return Response.ok(Words.get_word(seed), "Seeds word returned")
+            return Response.ok(Words.get_answer(seed), "Seeds word returned")

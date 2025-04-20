@@ -2,13 +2,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 :root {
   --primary-color: #523242;
-  --secondary-color: #F7C096;
-  --secondary-light-color: #F7C6A1;
+  --secondary-color: #F7B68B;
+  --secondary-light-color: #F7CCAB;
   --background-color: #FEDEB8;
 
-  --located: #C25E59;
+  --located: #7CB07F ;
   --somewhere: #EBB746;
-  --nowhere: var(--secondary-color);
+  --nowhere: #c4ab99;
   
   height: 100%;
 }

@@ -17,16 +17,17 @@ class InvalidWord(Exception):
 
 class Words:
     _words: List[str] = []
+    _answers: List[str] = []
 
     guess_type = List[Union[Literal['r'], Literal['w'], Literal['c']]]
 
     @staticmethod
-    def get_word(seed: str) -> str:
+    def get_answer(seed: str) -> str:
         # set the random seed based on the date
         random.seed(seed)
         
         # pick a random word from the list, using the seed
-        return random.choice(Words._words)
+        return random.choice(Words._answers)
     @staticmethod
     def validate(word: str) -> bool:
         left = 0
@@ -51,7 +52,7 @@ class Words:
 
         result: Words.guess_type = []
 
-        answer_word = Words.get_word(seed)
+        answer_word = Words.get_answer(seed)
         for i in range(len(word)):
             char = word[i]
             if answer_word[i] == char:
@@ -75,6 +76,13 @@ class Words:
         except FileNotFoundError:
             Words._words = Words._sort_words()
     @staticmethod
+    def _load_answers():
+        Words._answers = []
+
+        f = open('./answers.txt', 'r')
+        for answer in f:
+            Words._answers .append(answer.rstrip()) # rstrip to remove the new line
+    @staticmethod
     def _sort_words():
         # read all the words into memory, loaded as a list using splitlines
         with open('words.txt', 'r') as file:
@@ -88,3 +96,4 @@ class Words:
         return words
 
 Words._load_words()
+Words._load_answers()
