@@ -18,17 +18,19 @@
   class Icon {
     src: string;
     code: string;
+    style: string;
 
-    constructor(src: string, code: string) {
+    constructor(src: string, code: string, style = "") {
       this.src = src;
       this.code = code;
+      this.style = style;
     }
   }
 
   const rows = [
     ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
     ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-    [new Icon(enterIcon, "Enter"), "z", "x", "c", "v", "b", "n", "m", new Icon(bkspcIcon, "Backspace")],
+    [new Icon(enterIcon, "Enter", "height: 60%"), "z", "x", "c", "v", "b", "n", "m", new Icon(bkspcIcon, "Backspace")],
   ];
 
   const keysPressed: {[key: string]: boolean} = {};
@@ -62,7 +64,7 @@
     <div class="row">
       {#each row as key}
         {#if key instanceof Icon}
-          <button onclick={() => onKeyTrigger(key.code)} class="key"><img alt={key.code} src={key.src}></button>
+          <button onclick={() => onKeyTrigger(key.code)} class="key"><img alt={key.code} style={key.style} src={key.src}></button>
         {:else}
           <button onclick={() => onKeyTrigger(key)}
             class:somewhere={wordHeatMap.get(key) === Heat.Somewhere}
