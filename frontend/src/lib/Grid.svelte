@@ -90,13 +90,13 @@ export const shakeRow = (rowI: number) => {
       animation: pop 70ms ease-in-out;
     }
     &.right {
-      --to-be-background-color: #C25E59;
+      --to-be-background-color: var(--located);
     }
     &.close {
-      --to-be-background-color: #EBB746;
+      --to-be-background-color: var(--somewhere);
     }
     &.wrong {
-      --to-be-background-color: var(--secondary-color);
+      --to-be-background-color: var(--nowhere);
     }
 
     &.right, &.close, &.wrong {

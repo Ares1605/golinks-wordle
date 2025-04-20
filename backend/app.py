@@ -15,7 +15,7 @@ api = Api(app)
 api.add_resource(API.Test, '/test_connection')
 api.add_resource(API.GetWords, '/all_words')
 api.add_resource(API.Guess, '/seed/<string:seed>/guess/<string:word>')
-api.add_resource(API.GetDailyWord, '/seed/<string:seed>/daily_word')
+api.add_resource(API.Reveal, '/seed/<string:seed>/reveal')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)), debug=os.getenv('DEVELOPMENT', '0') == '1', use_reloader=False)  # use_reloader=False prevents the app from starting twice

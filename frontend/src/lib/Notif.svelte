@@ -9,7 +9,7 @@
         notif = null;
         fadeOut = false;
       }, 300);
-    }, 2000);
+    }, 3500);
   }
 </script>
 

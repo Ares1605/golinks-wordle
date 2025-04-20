@@ -15,6 +15,8 @@ export class Cell {
   }
 }
 
+export type Grid = Cell[][];
+
 export const generateEmptyGrid = () => {
   const grid = [];
   for (let rowI = 0; rowI < 6; rowI++) {
@@ -36,7 +38,7 @@ export type GridJSON = {
   status: Status,
 }[][];
 
-export const gridMarshaller = (grid: Cell[][]): GridJSON =>
+export const gridMarshaller = (grid: Grid): GridJSON =>
   grid.map(row => row.map(cell => ({
     value: cell.value,
     status: cell.status,
@@ -44,7 +46,7 @@ export const gridMarshaller = (grid: Cell[][]): GridJSON =>
 export const gridUnMarshaller = (gridJSON: GridJSON): GridJSON =>
   gridJSON.map(row => row.map(cell => new Cell(cell.value, cell.status)));
 
-export const getCurrentCell = (grid: Cell[][]) => {
+export const getCurrentCell = (grid: Grid) => {
   console.log(grid);
   for (let rowI = 0; rowI < grid.length; rowI++) {
     const row = grid[rowI];
@@ -57,4 +59,47 @@ export const getCurrentCell = (grid: Cell[][]) => {
     }
   }
   return { row: grid.length, col: 0 };
+}
+
+export enum Heat {
+  Nowhere = 'Nowhere',
+  Somewhere = 'Somewhere',
+  Located = 'Located',
+}
+
+export const getWordHeatMap = (grid: Grid): Map<string, Heat> => {
+  const statusToHeat = (status: Status.Wrong | Status.Right | Status.Close): Heat => {
+    switch (status) {
+      case Status.Close:
+        return Heat.Somewhere;
+      case Status.Wrong:
+        return Heat.Nowhere;
+      case Status.Right:
+        return Heat.Located;
+    }
+  }
+
+  const heatMap = new Map<string, Heat>();
+  for (const row of grid) {
+    for (const cell of row) {
+      // if empty or pending is found, we expect there to be no more non-empty/non-pending cells, so just return heatMap
+      if (cell.status === Status.Pending || cell.status === Status.Empty)
+        return heatMap;
+      const heat = statusToHeat(cell.status);
+      if (heatMap.has(cell.value)) {
+        switch (heatMap.get(cell.value)) {
+          case Heat.Nowhere:
+            if (heat !== Heat.Nowhere)
+              heatMap.set(cell.value, heat);
+          case Heat.Somewhere:
+            if (heat === Heat.Located)
+              heatMap.set(cell.value, heat);
+        }
+      } else {
+        heatMap.set(cell.value, heat);
+      }
+    }
+  }
+
+  return heatMap;
 }

@@ -21,7 +21,7 @@ class Words:
     guess_type = List[Union[Literal['r'], Literal['w'], Literal['c']]]
 
     @staticmethod
-    def get_daily_word(seed: str) -> str:
+    def get_word(seed: str) -> str:
         # set the random seed based on the date
         random.seed(seed)
         
@@ -51,12 +51,12 @@ class Words:
 
         result: Words.guess_type = []
 
-        daily_word = Words.get_daily_word(seed)
+        answer_word = Words.get_word(seed)
         for i in range(len(word)):
             char = word[i]
-            if daily_word[i] == char:
+            if answer_word[i] == char:
                 result.append('r')
-            elif char in daily_word:
+            elif char in answer_word:
                 result.append('c')
             else:
                 result.append('w')

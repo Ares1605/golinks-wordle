@@ -6,6 +6,10 @@
   --secondary-light-color: #F7C6A1;
   --background-color: #FEDEB8;
 
+  --located: #C25E59;
+  --somewhere: #EBB746;
+  --nowhere: var(--secondary-color);
+  
   height: 100%;
 }
 

@@ -1,16 +1,21 @@
 <script lang="ts">
   import enterIcon from "../assets/enter.svg";
   import bkspcIcon from "../assets/backspace.svg";
+  import { type Grid, Heat, getWordHeatMap } from "./grid";
 
   interface KeyboardProps {
     onKey: (key: string) => void;
     height: string;
     locked: boolean;
+    grid: Grid;
   }
 
-  let { onKey: onKeyTriggerWrapper, height, locked }: KeyboardProps = $props();
+  let { onKey: onKeyTriggerWrapper, grid, height, locked }: KeyboardProps = $props();
 
-  class Logo {
+  let wordHeatMap: Map<string, Heat> = $state(getWordHeatMap(grid));
+  $effect(() => { wordHeatMap = getWordHeatMap(grid) });
+  
+  class Icon {
     src: string;
     code: string;
 
@@ -23,7 +28,7 @@
   const rows = [
     ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
     ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-    [new Logo(enterIcon, "Enter"), "z", "x", "c", "v", "b", "n", "m", new Logo(bkspcIcon, "Backspace")],
+    [new Icon(enterIcon, "Enter"), "z", "x", "c", "v", "b", "n", "m", new Icon(bkspcIcon, "Backspace")],
   ];
 
   const keysPressed: {[key: string]: boolean} = {};
@@ -56,10 +61,14 @@
   {#each rows as row}
     <div class="row">
       {#each row as key}
-        {#if key instanceof Logo}
+        {#if key instanceof Icon}
           <button onclick={() => onKeyTrigger(key.code)} class="key"><img alt={key.code} src={key.src}></button>
         {:else}
-          <button onclick={() => onKeyTrigger(key)} class="key">{key}</button>
+          <button onclick={() => onKeyTrigger(key)}
+            class:somewhere={wordHeatMap.get(key) === Heat.Somewhere}
+            class:located={wordHeatMap.get(key) === Heat.Located}
+            class:nowhere={wordHeatMap.get(key) === Heat.Nowhere}
+            class="key">{key}</button>
         {/if}
       {/each}
     </div>
@@ -100,10 +109,15 @@
   text-transform: capitalize;
   position: relative;
 
+  transition: .15s background-color ease-in-out;
+
   img {
     position: absolute;
     max-width: 95%;
     max-height: 85%;
   }
 }
+.located { background-color: var(--located); }
+.somewhere { background-color: var(--somewhere); }
+.nowhere { background-color: var(--nowhere); }
 </style>

@@ -22,6 +22,6 @@ class API:
                 return Response.ok({
                     'is_valid_word': False
                 }, "Uh-oh, the word you requested a guess with isn't a valid word!")
-    class GetDailyWord(Resource):
+    class Reveal(Resource):
         def get(self, seed: str):
-            return Response.ok(Words.get_daily_word(seed), "Todays word returned")
+            return Response.ok(Words.get_word(seed), "Seeds word returned")

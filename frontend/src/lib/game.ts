@@ -1,4 +1,4 @@
-import { Cell, gridUnMarshaller, gridMarshaller, generateEmptyGrid, type GridJSON } from "./grid";
+import { Cell, type Grid, gridUnMarshaller, gridMarshaller, generateEmptyGrid, type GridJSON } from "./grid";
 
 type StateJSON = {
   seed: number,
@@ -8,7 +8,7 @@ type StateJSON = {
 } | null;
 type State = {
   seed: number,
-  grid: Cell[][],
+  grid: Grid,
   date_generated: string,
   locked: boolean,
 };
@@ -22,7 +22,7 @@ const stateMarshaller = (state: State): StateJSON => {
   state.grid = gridMarshaller(state.grid);
   return state;
 }
-export const getGameState = (): State|null => {
+export const retrieveGameState = (): State|null => {
   try {
     const stateRaw = localStorage.getItem("state");
     if (stateRaw === null)
@@ -37,7 +37,7 @@ export const getGameState = (): State|null => {
 export const generateSeed = () => Math.floor(Math.random() * 1000000);
 export const generateDate = () => new Date().toLocaleDateString();
 export const loadState = (): State => {
-  const gameState = getGameState();
+  const gameState = retrieveGameState();
   if (gameState === null || gameState.date_generated !== generateDate()) {
     return {
       grid: generateEmptyGrid(),
@@ -49,7 +49,7 @@ export const loadState = (): State => {
   return gameState;
 }
 
-export const saveGameState = (grid: Cell[][], seed: number, dateGenerated: string, locked: boolean) => {
+export const saveGameState = (grid: Grid, seed: number, dateGenerated: string, locked: boolean) => {
   const state: State = {
     grid: grid,
     seed: seed,

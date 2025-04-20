@@ -14,12 +14,12 @@
   let dateGenerated = $state(state_.date_generated);
   let grid = $state(state_.grid);
   let seed = $state(state_.seed);
+  console.log(seed);
   let locked = $state(state_.locked);
 
   let cell = getCurrentCell(grid);
   console.log(cell);
   let gridComp: Grid;
-  let keyboardComp: Keyboard;
   let notifComp: Notif;
 
   $effect(() => {
@@ -69,12 +69,17 @@
             row[colI] = new Cell(row[colI].value, status);
           }, colI * 175);
         }
-        setTimeout(() => {
+        setTimeout(async () => {
           locked = false;
 
           // if everything in data are right answers, we've won
+            console.log(cell.row);
           if (data.result.filter(i => i !== GuessChar.Right).length === 0) {
             notifComp.setNotif("Congrats! 🎉");
+            locked = true;
+          } else if (cell.row === grid.length) {// if you've used up all the rows, and still haven't gotten it right
+            const response = await API.reveal(seed);
+            notifComp.setNotif(`Nice try, the word is ${response.data}!`)
             locked = true;
           }
         }, (data.result.length - 1) * 175 + 550); // 550 for the 550 ms transition on the last cell
@@ -141,11 +146,11 @@
       <div class="vbar"></div>
       <Grid height="100%" bind:this={gridComp} {grid}></Grid>
       <div class="vbar">
-        <button class="clear" class:clearing={isClearing} onclick={clearGrid}><img alt="trash logo" src={trashLogo}></button>
-        <button class="refresh" class:spinning={isRefreshing} onclick={refreshGrid}><img alt="refresh logo" src={refreshLogo}></button>
+        <button title="Clear grid" class="clear" class:clearing={isClearing} onclick={clearGrid}><img alt="trash logo" src={trashLogo}></button>
+        <button title="Get new word" class="refresh" class:spinning={isRefreshing} onclick={refreshGrid}><img alt="refresh logo" src={refreshLogo}></button>
       </div>
     </div>
-    <Keyboard bind:this={keyboardComp} {locked} height="30%" {onKey}></Keyboard>
+    <Keyboard {locked} {grid} height="30%" {onKey} />
     <Notif bind:this={notifComp} />
 </div>
 
