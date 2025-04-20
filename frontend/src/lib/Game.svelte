@@ -6,9 +6,9 @@
   import Keyboard from "./Keyboard.svelte";
   import Notif from "./Notif.svelte";
   import { Cell, getWord, Status, getCurrentCell, generateEmptyGrid } from "./grid";
+  import { saveGameState, loadState, generateSeed, generateDate } from "./game";
   import API from "./api";
   import { GuessChar } from "./api";
-  import { saveGameState, loadState, generateSeed, generateDate } from "./game";
 
   let state_ = loadState();
   let dateGenerated = $state(state_.date_generated);
@@ -101,14 +101,14 @@
     key = key.toLowerCase();
     // if the key is longer then one character, it must be a keyboard code like Alt or Menu (not a-z)
     if (key.length > 1)
-        return
+        return;
     const code = key.charCodeAt(0)
     // ASCII # of a => 97, and z => 122
     if (code < 97 || code > 122)
-      return // if the key is not a-z, then disregard the key (Enter and Backspace have already been accounted for)
+      return; // if the key is not a-z, then disregard the key (Enter and Backspace have already been accounted for)
 
     if (cell.col >= row.length)
-        return // TODO: add a "camera" shake
+        return;
     row[cell.col] = new Cell(key, Status.Pending);
     cell.col++;
   }

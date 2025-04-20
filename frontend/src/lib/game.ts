@@ -38,7 +38,7 @@ export const generateSeed = () => Math.floor(Math.random() * 1000000);
 export const generateDate = () => new Date().toLocaleDateString();
 export const loadState = (): State => {
   const gameState = getGameState();
-  if (gameState === null) {
+  if (gameState === null || gameState.date_generated !== generateDate()) {
     return {
       grid: generateEmptyGrid(),
       seed: generateSeed(),
