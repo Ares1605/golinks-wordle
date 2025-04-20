@@ -7,7 +7,9 @@
     height: string;
   }
 
-  let { onKey: onKeyTrigger, height }: KeyboardProps = $props();
+  let { onKey: onKeyTriggerWrapper, height }: KeyboardProps = $props();
+
+  let lockInputs = false;
 
   class Logo {
     src: string;
@@ -27,6 +29,12 @@
 
   const keysPressed: {[key: string]: boolean} = {};
 
+  const onKeyTrigger = (key: string) => {
+    // if control is also being pressed, disregard the key event
+    if (lockInputs || keysPressed["Control"]) return;
+    onKeyTriggerWrapper(key);
+  }
+
   const onKeyDown = (event: KeyboardEvent) => {
     // if the key is currently being pressed, disregard the consecutive events
     if (keysPressed[event.key])
@@ -37,6 +45,13 @@
   }
   const onKeyUp = (event: KeyboardEvent) => {
     keysPressed[event.key] = false;
+  }
+
+  export const lock = () => {
+    lockInputs = true;
+  }
+  export const unlock = () => {
+    lockInputs = false;
   }
 </script>
 

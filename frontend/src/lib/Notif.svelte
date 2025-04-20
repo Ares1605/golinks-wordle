@@ -33,7 +33,7 @@
     transition: .3s ease-in-out;
   }
   .show {
-    opacity: .8;
+    opacity: .9;
     top: 50px;
   }
   .fade-out {

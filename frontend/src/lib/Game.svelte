@@ -2,14 +2,21 @@
   import Grid from "./Grid.svelte";
   import Keyboard from "./Keyboard.svelte";
   import Notif from "./Notif.svelte";
-  import { Cell, generateEmptyGrid, getWord, Status } from "./grid";
+  import { Cell, getWord, Status, getCurrentCell } from "./grid";
   import API from "./api";
   import { GuessChar } from "./api";
+  import { saveGameState, loadGrid } from "./game";
 
-  let cell = { row: 0, col: 0 };
-  let grid = $state(generateEmptyGrid());
+  let grid = $state(loadGrid());
+  let cell = getCurrentCell(grid);
+  console.log(cell);
   let gridComp: Grid;
+  let keyboardComp: Keyboard;
   let notifComp: Notif;
+
+  $effect(() => {
+    saveGameState(grid);
+  });
 
   const processEnter = async () => {
     console.log("Processing the enter key!");
@@ -32,6 +39,7 @@
           return;
         }
 
+        keyboardComp.lock();
         for (let colI = 0; colI < data.result.length; colI++) {
           let status: Status;
           switch (data.result[colI]) {
@@ -53,6 +61,15 @@
             row[colI] = new Cell(row[colI].value, status);
           }, colI * 175);
         }
+        setTimeout(() => {
+          keyboardComp.unlock();
+
+          // if everything in data are right answers, we've won
+          if (data.result.filter(i => i !== GuessChar.Right).length === 0) {
+            notifComp.setNotif("Congrats! 🎉");
+            keyboardComp.lock();
+          }
+        }, (data.result.length - 1) * 175 + 550); // 550 for the 550 ms transition on the last cell
 
         console.log("Going to new row");
         cell.row++;
@@ -91,7 +108,7 @@
 
 <div class="game">
   <Grid height="60%" bind:this={gridComp} {grid}></Grid>
-  <Keyboard height="30%" onKey={onKey}></Keyboard>
+  <Keyboard bind:this={keyboardComp} height="30%" {onKey}></Keyboard>
   <Notif bind:this={notifComp} />
 </div>
 
