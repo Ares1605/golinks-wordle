@@ -5,11 +5,10 @@
   interface KeyboardProps {
     onKey: (key: string) => void;
     height: string;
+    locked: boolean;
   }
 
-  let { onKey: onKeyTriggerWrapper, height }: KeyboardProps = $props();
-
-  let lockInputs = false;
+  let { onKey: onKeyTriggerWrapper, height, locked }: KeyboardProps = $props();
 
   class Logo {
     src: string;
@@ -30,12 +29,15 @@
   const keysPressed: {[key: string]: boolean} = {};
 
   const onKeyTrigger = (key: string) => {
-    // if control is also being pressed, disregard the key event
-    if (lockInputs || keysPressed["Control"]) return;
+    if (locked) return;
     onKeyTriggerWrapper(key);
   }
 
   const onKeyDown = (event: KeyboardEvent) => {
+    // if control is also being pressed, disregard the key event
+    if (event.ctrlKey)
+      return;
+    event.preventDefault();
     // if the key is currently being pressed, disregard the consecutive events
     if (keysPressed[event.key])
       return;
@@ -45,13 +47,6 @@
   }
   const onKeyUp = (event: KeyboardEvent) => {
     keysPressed[event.key] = false;
-  }
-
-  export const lock = () => {
-    lockInputs = true;
-  }
-  export const unlock = () => {
-    lockInputs = false;
   }
 </script>
 

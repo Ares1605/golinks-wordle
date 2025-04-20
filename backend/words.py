@@ -21,12 +21,9 @@ class Words:
     guess_type = List[Union[Literal['r'], Literal['w'], Literal['c']]]
 
     @staticmethod
-    def get_daily_word() -> str:
-        today = str(date.today())
-        key = hash(today)
-
+    def get_daily_word(seed: str) -> str:
         # set the random seed based on the date
-        random.seed(key)
+        random.seed(seed)
         
         # pick a random word from the list, using the seed
         return random.choice(Words._words)
@@ -46,7 +43,7 @@ class Words:
                 right = mid - 1
         return False
     @staticmethod
-    def guess(word: str) -> guess_type:
+    def guess(word: str, seed: str) -> guess_type:
         if len(word) != 5:
             raise BadWordLength(word)
         if Words.validate(word) is False:
@@ -54,7 +51,7 @@ class Words:
 
         result: Words.guess_type = []
 
-        daily_word = Words.get_daily_word()
+        daily_word = Words.get_daily_word(seed)
         for i in range(len(word)):
             char = word[i]
             if daily_word[i] == char:

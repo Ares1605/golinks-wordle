@@ -36,6 +36,7 @@ export const shakeRow = (rowI: number) => {
 <style lang="scss">
   .grid {
     box-sizing: border-box;
+    aspect-ratio: .75;
     display: flex;
     flex-direction: column;
     margin: 10px;
@@ -145,6 +146,11 @@ export const shakeRow = (rowI: number) => {
     .cell {
       --border-width: 3px;
       border-width: var(--border-width);
+    }
+  }
+  @media only screen and (min-height: 1000px) {
+    .grid {
+      aspect-ratio: .8;
     }
   }
 </style>

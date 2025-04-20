@@ -14,8 +14,8 @@ type GuessData = {
 ;
 
 export default class API {
-  static async guess(word: string): Promise<GuessResponse> {
-    const response = await fetch(`http://127.0.0.1:5000/guess/${encodeURI(word)}`);
+  static async guess(word: string, seed: number): Promise<GuessResponse> {
+    const response = await fetch(`http://127.0.0.1:5000/seed/${encodeURI(seed)}/guess/${encodeURI(word)}`);
     if (!response.ok)
       throw new Error(`HTTP error! status: ${response.status}`);
     const data: GuessResponse = await response.json();

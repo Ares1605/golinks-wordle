@@ -10,11 +10,11 @@ class API:
         def get(self):
             return Response.ok(Words.all(), "Words retrieved successfully!")
     class Guess(Resource):
-        def get(self, word: str):
+        def get(self, seed: str, word: str):
             try:
                 return Response.ok({
                     'is_valid_word': True,
-                    'result': Words.guess(word),
+                    'result': Words.guess(word, seed),
                 }, 'Successfully evaluated the guess.')
             except BadWordLength as e:
                 return Response.bad_request(f'Expected a word of length 5, got length {len(e.word)}')
@@ -23,5 +23,5 @@ class API:
                     'is_valid_word': False
                 }, "Uh-oh, the word you requested a guess with isn't a valid word!")
     class GetDailyWord(Resource):
-        def get(self):
-            return Response.ok(Words.get_daily_word(), "Todays word returned")
+        def get(self, seed: str):
+            return Response.ok(Words.get_daily_word(seed), "Todays word returned")
