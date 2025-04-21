@@ -18,13 +18,20 @@
     font-size: 16px;
     justify-content: center;
     height: 30px;
+    line-height: 30px;
     width: 100%;
     color: var(--primary-color);
     gap: 6px;
   }
   img {
     height: 75%;
-    vertical-align: middle;
+    display: inline-block;
+    align-self: center;
     aspect-ratio: 1;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    height: 100%;
   }
 </style>
