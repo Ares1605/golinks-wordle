@@ -26,14 +26,14 @@ A stylish, responsive, and engaging Wordle clone developed for the **2025 Full S
 
 ## 🌟 Features
 
-- **🔥 Heat Signatures:** Keyboard heat signatures visually highlight frequently used keys.
-- **🔔 Notifications:** Dynamic notifications to improve user interaction.
-- **✨ Smooth Transitions:** Eye-catching, "poppy" transitions for enhanced gameplay.
-- **🎨 Neutral Color Scheme:** A clean and aesthetically pleasing interface.
-- **🔄 Clear Grid:** Quickly reset the puzzle to retry the current word.
-- **🆕 New Word Generation:** Instantly generate fresh puzzles beyond the daily challenge.
-- **📚 Optimized Word Lists:** In-memory loading of words and answers with a relevancy threshold for engaging puzzles.
-- **📱 Fully Responsive:** Optimized for seamless gameplay across desktops and mobile devices.
+- **🔥 Heat Signatures:** Visually indicates frequently used keys.
+- **🔔 Notifications:** Provides user notifications during gameplay.
+- **✨ Smooth Transitions:** Enhances user experience with transitions.
+- **🎨 Neutral Color Scheme:** Offers a simple and clean interface.
+- **🔄 Clear Grid:** Allows puzzle reset to retry words.
+- **🆕 New Word Generation:** Generates new puzzles on demand.
+- **📚 Optimized Word Lists:** Loads words efficiently for gameplay.
+- **📱 Fully Responsive:** Works on desktops and mobile devices.
 
 ## 🖥️ Application Previews
 
