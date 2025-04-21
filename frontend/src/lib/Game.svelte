@@ -194,7 +194,7 @@
 
     .clear {
       &:hover {
-        transform: rotate(3deg) scale(1.07);
+        transform: rotate(7deg) scale(1.09);
       }
       &.clearing {
         animation: clear-pop 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0) forwards;
@@ -240,7 +240,7 @@
       }
     }
   }
-  @media only screen and (min-height: 700px) {
+  @media screen and (min-height: 700px) {
     .vbar {
       width: 27px;
     }

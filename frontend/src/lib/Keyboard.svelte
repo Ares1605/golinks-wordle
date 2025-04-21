@@ -83,10 +83,11 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin: 10px;
+  margin: 10px 0px;
 }
 .row {
   flex: auto; 
+  box-sizing: border-box;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -122,4 +123,23 @@
 .located { background-color: var(--located); }
 .somewhere { background-color: var(--somewhere); }
 .nowhere { background-color: var(--nowhere); }
+
+@media screen and (max-width: 767px) {
+  .row {
+    gap: 3px;
+
+    &:nth-child(even) {
+      padding: 0px 20px;
+    }
+    width: calc(100% - 10px);
+    margin: auto;
+  }
+  .keyboard {
+    gap: 3px;
+  }
+  .key {
+    flex: auto; /* consume as much space as it can */
+    aspect-ratio: unset;
+  }
+}
 </style>

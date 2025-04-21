@@ -135,7 +135,7 @@ export const shakeRow = (rowI: number) => {
       transform: scale(1);
     }
     50% {
-      transform: scale(1.07);
+      transform: scale(1.08);
     }
     100% {
       transform: scale(1);
@@ -148,7 +148,7 @@ export const shakeRow = (rowI: number) => {
       border-width: var(--border-width);
     }
   }
-  @media only screen and (min-height: 1000px) {
+  @media screen and (min-height: 1000px) {
     .grid {
       aspect-ratio: .8;
     }
