@@ -129,7 +129,7 @@
     gap: 3px;
 
     &:nth-child(even) {
-      padding: 0px 20px;
+      padding: 0px 10px;
     }
     width: calc(100% - 10px);
     margin: auto;
