@@ -5,6 +5,7 @@
 [![Gunicorn](https://img.shields.io/badge/Gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=white)](https://gunicorn.org/)
 [![Svelte](https://img.shields.io/badge/Svelte-%23f1413d.svg?logo=svelte&logoColor=white&style=for-the-badge)](https://svelte.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=for-the-badge)](https://www.typescriptlang.org/)
+[![Sass](https://img.shields.io/badge/Sass-C69?logo=sass&logoColor=fff&style=for-the-badge)](https://sass-lang.com/)
 
 </div>
 # 🎯 Wordle App Clone
@@ -14,14 +15,14 @@ A stylish, responsive, and engaging Wordle clone developed for the **2025 Full S
 ## 🚀 Tech Stack
 
 ### 🔧 Backend
-- Python
-- Flask
-- Gunicorn
+- Python <img align="center" height="20" src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/python.svg">
+- Flask <img align="center" src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/flask.svg" width="20">
+- Gunicorn <img align="center" src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/gunicorn.svg" width="20">
 
 ### 🎨 Frontend
-- TypeScript
-- Svelte
-- SASS
+- TypeScript <img align="center" height="20" src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/typescript.svg">
+- Svelte <img align="center" height="20" src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/svelte.svg">
+- SASS <img align="center" height="20" src="https://raw.githubusercontent.com/gilbarbara/logos/master/logos/sass.svg">
 
 ## 🌟 Features
 
