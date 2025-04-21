@@ -49,18 +49,28 @@ class Words:
             raise BadWordLength(word)
         if Words.validate(word) is False:
             raise InvalidWord(word)
-
-        result: Words.guess_type = []
-
+        
+        result: Words.guess_type = ['w'] * 5  # init all as wrong
         answer_word = Words.get_answer(seed)
+        
+        # first pass: mark all correct positions
         for i in range(len(word)):
-            char = word[i]
-            if answer_word[i] == char:
-                result.append('r')
-            elif char in answer_word:
-                result.append('c')
-            else:
-                result.append('w')
+            if word[i] == answer_word[i]:
+                result[i] = 'r'
+        
+        # second pass: mark remaining letters that are in the word but wrong position
+        # keep track of remaining letters in the answer
+        remaining_chars = {}
+        for i in range(len(answer_word)):
+            if answer_word[i] != word[i]:  # skip already matched positions
+                remaining_chars[answer_word[i]] = remaining_chars.get(answer_word[i], 0) + 1
+        
+        # now mark close matches
+        for i in range(len(word)):
+            if result[i] != 'r' and word[i] in remaining_chars and remaining_chars[word[i]] > 0:
+                result[i] = 'c'
+                remaining_chars[word[i]] -= 1
+                
         return result
     @staticmethod
     def all() -> List[str]:
