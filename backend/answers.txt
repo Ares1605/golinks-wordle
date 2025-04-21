@@ -21,7 +21,6 @@ angry
 ankle
 apple
 apply
-April
 arena
 argue
 arise
@@ -692,7 +691,6 @@ scent
 scoop
 scope
 score
-scott
 scout
 scrap
 screw
