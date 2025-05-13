@@ -8,6 +8,7 @@
 [![Sass](https://img.shields.io/badge/Sass-C69?logo=sass&logoColor=fff&style=for-the-badge)](https://sass-lang.com/)
 
 </div>
+
 # 🎯 Wordle App Clone
 
 A stylish, responsive, and engaging Wordle clone developed for the **2025 Full Stack Engineering Intern position at GoLinks**. This enhanced version of the popular Wordle game includes smooth transitions, interactive features, and a sleek, modern design.
